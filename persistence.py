@@ -5,7 +5,7 @@ Implements thread-safe file-based persistence using JSON.
 import json
 import logging
 import os
-from threading import Lock
+from threading import RLock
 from typing import Dict, Iterable
 
 from models import Todo, TodoCreate
@@ -26,7 +26,7 @@ class TodoDao:
     """
     def __init__(self, filename: str):
         self.filename = filename
-        self.lock = Lock()
+        self.lock = RLock()
         # read todos into memory.
         self.todos = self._read_all()
 
