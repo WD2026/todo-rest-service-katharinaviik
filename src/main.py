@@ -1,13 +1,15 @@
 """FastAPI implementation of the Todo REST API."""
 
+from pathlib import Path
+
 from fastapi import FastAPI
 
-from persistence import TodoDao
+from src.persistence import TodoDao
 from routers import todo
 
 
 # Data Access Object (dao) provides persistence operations for todo.
-dao = TodoDao("todo_data.json")
+dao = TodoDao(str(Path(__file__).with_name("todo_data.json")))
 
 # 'app' is refers to FastAPI
 # use param: redirect_slashes=False to disable automatic

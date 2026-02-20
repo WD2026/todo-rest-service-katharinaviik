@@ -12,9 +12,9 @@ methods for a "/todo" endpoint.
 
 | File                 | Contents           |
 |:---------------------|:-------------------|
-| `models.py`          | Classes for Todo and TodoCreate. Used for serialization and input validation. |
-| `persistence.py`     | Simple persistence of Todo objects. |
-| `main.py`            | FastAPI code to run the application. |
+| `src/models.py`          | Classes for Todo and TodoCreate. Used for serialization and input validation. |
+| `src/persistence.py`     | Simple persistence of Todo objects. |
+| `src/main.py`            | FastAPI code to run the application. |
 
 ## How to Build and Run
 
@@ -29,7 +29,7 @@ methods for a "/todo" endpoint.
 
 2. Run the app using uvicorn:
    ```shell
-   (env)$ uvicorn main:app --reload
+   (env)$ uvicorn src.main:app --reload
    ```
 
 3. Navigate to <http://127.0.0.1:8000/docs>. (Sorry, no html UI yet.)

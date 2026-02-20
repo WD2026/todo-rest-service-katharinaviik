@@ -2,8 +2,8 @@
 
 from fastapi import APIRouter, HTTPException, Request, Response
 
-from models import Todo, TodoCreate
-from persistence import TodoDao
+from src.models import Todo, TodoCreate
+from src.persistence import TodoDao
 
 # This will be set by main.py
 _dao: TodoDao = None

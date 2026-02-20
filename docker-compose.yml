@@ -1,0 +1,15 @@
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/html:/usr/share/nginx/html:ro
+      - ./nginx/conf:/etc/nginx:ro
+    depends_on:
+      - todo
+
+  todo:
+    build: .
+    expose:
+      - "8000"
