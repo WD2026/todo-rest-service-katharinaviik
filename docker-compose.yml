@@ -1,15 +1,22 @@
 services:
   nginx:
-    image: nginx:alpine
+    image: nginx:stable
     ports:
       - "80:80"
     volumes:
       - ./nginx/html:/usr/share/nginx/html:ro
       - ./nginx/conf:/etc/nginx:ro
     depends_on:
-      - todo
+      - api
 
-  todo:
-    build: .
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     expose:
       - "8000"
+    environment:
+      API_ROOT_PATH: /api
+      TODO_DATA_DIR: /data
+    volumes:
+      - ./data:/data

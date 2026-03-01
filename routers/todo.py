@@ -28,15 +28,11 @@ def get_todos():
 def create_todo(todo: TodoCreate, request: Request, response: Response):
     """Create and save a new todo. A unique ID is assigned."""
     created = _dao.save(todo)
-    # Return the location of the new todo.
-    location = f"/todos/{created.id}"
-    # A cleaner way to get the location URL is reverse mapping.
-    # location = request.url_for("get_todo", todo_id=str(created.id))
-    response.headers["Location"] = location
+    response.headers["Location"] = request.url_for("get_todo", todo_id=str(created.id)).path
     return created
 
 
-@router.get("/{todo_id}", response_model=Todo)
+@router.get("/{todo_id}", response_model=Todo, name="get_todo")
 def get_todo(todo_id: int):
     """Get a specific todo by id.
 

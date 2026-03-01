@@ -1,0 +1,32 @@
+[
+  {
+    "text": "Learn REST",
+    "done": false,
+    "id": 1
+  },
+  {
+    "text": "Write a RESTful API using FastAPI",
+    "done": false,
+    "id": 2
+  },
+  {
+    "text": "Write some unit tests of persistence",
+    "done": true,
+    "id": 3
+  },
+  {
+    "text": "Run the todo service in a container with Nginx and uvicorn",
+    "done": false,
+    "id": 4
+  },
+  {
+    "text": "Warm my food",
+    "done": false,
+    "id": 6
+  },
+  {
+    "text": "smoke-nginx",
+    "done": false,
+    "id": 7
+  }
+]

@@ -23,5 +23,15 @@
     "text": "Warm my food",
     "done": false,
     "id": 6
+  },
+  {
+    "text": "smoke-native",
+    "done": false,
+    "id": 7
+  },
+  {
+    "text": "smoke-api-root",
+    "done": false,
+    "id": 8
   }
 ]
