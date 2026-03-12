@@ -2,8 +2,11 @@
 
 from fastapi import APIRouter, HTTPException, Request, Response
 
+from src.logging_config import get_logger
 from src.models import Todo, TodoCreate
 from src.persistence import TodoDao
+
+logger = get_logger(__name__)
 
 # This will be set by main.py
 _dao: TodoDao = None
@@ -21,7 +24,9 @@ router = APIRouter(prefix="/todos", tags=["Todos"])
 @router.get("/", response_model=list[Todo])
 def get_todos():
     """Get all todos."""
-    return _dao.get_all()
+    todos = _dao.get_all()
+    logger.info("Todos retrieved", count=len(todos))
+    return todos
 
 
 @router.post("/", response_model=Todo, status_code=201)
@@ -29,6 +34,7 @@ def create_todo(todo: TodoCreate, request: Request, response: Response):
     """Create and save a new todo. A unique ID is assigned."""
     created = _dao.save(todo)
     response.headers["Location"] = request.url_for("get_todo", todo_id=str(created.id)).path
+    logger.info("Todo created", todo_id=created.id)
     return created
 
 
@@ -40,7 +46,9 @@ def get_todo(todo_id: int):
     """
     todo = _dao.get(todo_id)
     if not todo:
+        logger.warning("Todo not found", todo_id=todo_id)
         raise HTTPException(status_code=404, detail="Todo not found")
+    logger.info("Todo retrieved", todo_id=todo_id)
     return todo
 
 
@@ -53,6 +61,7 @@ def update_todo(todo_id: int, todo: TodoCreate):
     """
     existing = _dao.get(todo_id)
     if not existing:
+        logger.warning("Todo not found", todo_id=todo_id)
         raise HTTPException(status_code=404, detail="Todo not found")
 
     updated = Todo(
@@ -60,7 +69,9 @@ def update_todo(todo_id: int, todo: TodoCreate):
         text=todo.text,
         done=todo.done,
     )
-    return _dao.update(updated)
+    result = _dao.update(updated)
+    logger.info("Todo updated", todo_id=todo_id)
+    return result
 
 
 @router.delete("/{todo_id}", status_code=204)
@@ -74,9 +85,11 @@ def delete_todo(todo_id: int):
     """
     todo = _dao.get(todo_id)
     if not todo:
+        logger.warning("Todo not found", todo_id=todo_id)
         raise HTTPException(status_code=404, detail="Todo not found")
     
     _dao.delete(todo_id)
+    logger.info("Todo deleted", todo_id=todo_id)
     # Return 204 No Content with no body
 
 

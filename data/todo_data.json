@@ -23,5 +23,15 @@
     "text": "Warm my food",
     "done": false,
     "id": 6
+  },
+  {
+    "text": "Modify",
+    "done": false,
+    "id": 7
+  },
+  {
+    "text": "Try new loggs",
+    "done": false,
+    "id": 8
   }
 ]

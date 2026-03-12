@@ -5,8 +5,11 @@ from pathlib import Path
 
 from fastapi import FastAPI
 
+from src import logging_config
 from src.persistence import TodoDao
 from routers import todo
+
+logging_config.configure_logging()
 
 
 # Data Access Object (dao) provides persistence operations for todo.
